@@ -137,7 +137,24 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Email (configure with your SMTP)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.example.com')
+EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@juicecleanseme.com')
 
+
+# If you prefer settings-based schedule instead of DB:
+from celery.schedules import crontab
+CELERY_BEAT_SCHEDULE = {
+    'daily-challenge-reminders': {
+        'task': 'challenges.tasks.send_daily_reminders',
+        'schedule': crontab(hour=8, minute=0),  # everyday at 08:00 UTC
+    },
+}
 
 # Celery settings
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
