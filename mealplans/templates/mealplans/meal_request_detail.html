@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Meal Request #{{ request.id }}</h1>
+<p><strong>Preferences:</strong> {{ request.preferences }}</p>
+<p><strong>Calories:</strong> {{ request.calories }}</p>
+<p><strong>Status:</strong> {{ request.status }}</p>
+{% if request.plan %}
+  <pre class="bg-gray-100 p-4 rounded">{{ request.plan }}</pre>
+{% endif %}
+<a href="{% url 'meal_request_list' %}" class="mt-4 inline-block">Back to List</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Challenges</h1>
+<ul>
+  {% for challenge in challenges %}
+    <li class="bg-white p-4 rounded shadow mb-2">
+      <a href="{% url 'challenge_detail' challenge.id %}" class="text-lg font-semibold">{{ challenge.title }}</a>
+      <p>{{ challenge.description|truncatechars:100 }}</p>
+      <p class="text-sm text-gray-500">{{ challenge.start_date }} - {{ challenge.end_date }}</p>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juice Cleanse Me</title>
+  <link href="{% static 'dist/styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-white shadow p-4">
+    <div class="container mx-auto">
+      <a href="{% url 'challenge_list' %}" class="text-xl font-bold">Challenges</a>
+      <a href="{% url 'meal_request_list' %}" class="ml-4 text-xl font-bold">Meal Plans</a>
+    </div>
+  </nav>
+  <div class="container mx-auto p-4">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

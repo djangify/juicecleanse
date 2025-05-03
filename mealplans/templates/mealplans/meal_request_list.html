@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Your Meal Requests</h1>
+<ul>
+  {% for req in requests %}
+    <li class="bg-white p-4 rounded shadow mb-2">
+      <a href="{% url 'meal_request_detail' req.id %}" class="text-lg font-semibold">#{{ req.id }} - {{ req.created_at|date:"SHORT_DATETIME_FORMAT" }}</a>
+      <p>Status: {{ req.status }}</p>
+    </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'meal_request_new' %}" class="bg-blue-500 text-white px-4 py-2 rounded">New Request</a>
+{% endblock %}
