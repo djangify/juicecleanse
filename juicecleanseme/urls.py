@@ -3,6 +3,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(('core.urls', 'core'), namespace='core')),
 
     # Challenges
     # UI routes with distinct application namespace 'challenges_ui'

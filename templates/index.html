@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Juice Cleanse Me{% endblock %}
+
+{% block content %}
+<section class="bg-green-50 flex items-center justify-center h-screen">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold mb-4">Welcome to Juice Cleanse Me</h1>
+    <p class="mb-6">Join challenges or generate your clean-eating meal plan with AI.</p>
+    <a href="{% url 'challenges:challenge_list' %}" class="bg-blue-500 text-white px-6 py-3 rounded">Browse Challenges</a>
+    <a href="{% url 'mealplans:meal_request_list' %}" class="ml-4 bg-yellow-500 text-white px-6 py-3 rounded">Your Meal Plans</a>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
