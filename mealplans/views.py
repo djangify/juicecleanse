@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MealRequest
 from .serializers import MealRequestSerializer
 from .forms import MealRequestForm
+from .tasks import process_meal_request
 
 # API ViewSet
 class MealRequestViewSet(viewsets.ModelViewSet):
@@ -37,3 +38,8 @@ class MealRequestCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+
+def perform_create(self, serializer):
+    meal = serializer.save(user=self.request.user)
+    process_meal_request.delay(meal.id)

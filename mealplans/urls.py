@@ -5,10 +5,11 @@ from .views import (
     MealRequestListView, MealRequestDetailView, MealRequestCreateView
 )
 
-app_name = 'mealplans'
 
 router = DefaultRouter()
 router.register(r'', MealRequestViewSet, basename='mealrequest')
+
+app_name = 'mealplans'
 
 urlpatterns = [
     # UI routes

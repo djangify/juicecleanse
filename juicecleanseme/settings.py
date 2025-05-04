@@ -146,6 +146,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'no-reply@juicecleanseme.com')
 
+# OpenAI API key
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 # If you prefer settings-based schedule instead of DB:
 from celery.schedules import crontab
