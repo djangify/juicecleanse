@@ -1,15 +1,35 @@
+<!-- templates/accounts/signup.html -->
 {% extends 'base.html' %}
-{% load widget_tweaks %}
-
 {% block title %}Sign Up{% endblock %}
-
 {% block content %}
 <div class="max-w-md mx-auto bg-white p-8 rounded shadow">
   <h2 class="text-2xl font-semibold mb-6">Create an Account</h2>
-  <form method="post" action=".">
+  <form method="post" novalidate>
     {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Sign Up</button>
+    <div class="space-y-4">
+      <label class="block">
+        <span class="text-gray-700">Email</span>
+        {{ form.email }}
+      </label>
+      <label class="block">
+        <span class="text-gray-700">Password</span>
+        {{ form.password1 }}
+      </label>
+      <label class="block">
+        <span class="text-gray-700">Confirm Password</span>
+        {{ form.password2 }}
+      </label>
+      <label class="block">
+        <span class="text-gray-700">Dietary Preferences</span>
+        {{ form.dietary_preferences }}
+      </label>
+    </div>
+    <button
+      type="submit"
+      class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
+    >
+      Sign Up
+    </button>
   </form>
 </div>
 {% endblock %}

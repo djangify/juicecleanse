@@ -1,29 +1,56 @@
-from django.urls import path, include
-from challenges.webhooks import stripe_webhook
+# juicecleanse_me/urls.py
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from challenges.webhooks import stripe_webhook
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('blog/', include('blog.urls')),
-    # Core landing page
-    path('', include(('core.urls', 'core'), namespace='core')),
 
+    # Accounts (signup, login, logout, profile, stripe subscribe & webhook)
+    path(
+        'accounts/',
+        include(('accounts.urls', 'accounts'), namespace='accounts')
+    ),
 
-    # Authentication (login, logout, password change, etc.)
-    # path('accounts/', include('django.contrib.auth.urls')),
+    # Blog
+    path(
+        'blog/',
+        include(('blog.urls', 'blog'), namespace='blog')
+    ),
 
-    # Challenges
-    path('challenges/', include(('challenges.urls', 'challenges_ui'), namespace='challenges')),
-    path('api/challenges/', include(('challenges.urls', 'challenges_api'), namespace='challenges_api')),
+    # Core (homepage, about, etc.)
+    path(
+        '',
+        include(('core.urls', 'core'), namespace='core')
+    ),
 
-    # Mealplans
-    path('mealplans/', include(('mealplans.urls', 'mealplans_ui'), namespace='mealplans')),
-    path('api/mealplans/', include(('mealplans.urls', 'mealplans_api'), namespace='mealplans_api')),
+    # Challenges (UI & API)
+    path(
+        'challenges/',
+        include(('challenges.urls', 'challenges_ui'), namespace='challenges')
+    ),
+    path(
+        'api/challenges/',
+        include(('challenges.urls', 'challenges_api'), namespace='challenges_api')
+    ),
 
-    # Webhooks
+    # Mealplans (UI & API)
+    path(
+        'mealplans/',
+        include(('mealplans.urls', 'mealplans_ui'), namespace='mealplans')
+    ),
+    path(
+        'api/mealplans/',
+        include(('mealplans.urls', 'mealplans_api'), namespace='mealplans_api')
+    ),
+
+    # Stripe webhook
     path('webhooks/stripe/', stripe_webhook, name='stripe_webhook'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
