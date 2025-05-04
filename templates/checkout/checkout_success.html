@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-xl mx-auto text-center py-16">
+    <h2 class="text-3xl font-bold mb-4">Thank you for subscribing!</h2>
+    <p class="mb-6">Your subscription was successful. You now have access to premium challenges.</p>
+    <a href="{% url 'challenges:challenge_list' %}" class="bg-blue-500 text-white px-6 py-3 rounded">
+      Browse Challenges
+    </a>
+  </div>
+{% endblock %}

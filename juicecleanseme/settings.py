@@ -25,7 +25,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
 ]
 
-
 # Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -161,3 +160,8 @@ CELERY_BEAT_SCHEDULE = {
 # Celery settings
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# Stripe
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')

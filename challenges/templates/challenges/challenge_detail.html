@@ -1,18 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">{{ challenge.title }}</h1>
-<p>{{ challenge.description }}</p>
-<p class="text-sm text-gray-500">Starts: {{ challenge.start_date }} | Ends: {{ challenge.end_date }}</p>
-<form action="{% url 'challenge_register' challenge.id %}" method="post">
-  {% csrf_token %}
+  <h1 class="text-2xl font-bold mb-4">{{ challenge.title }}</h1>
+  <p class="mb-4">{{ challenge.description }}</p>
+  <p class="text-sm text-gray-500 mb-6">
+    Starts: {{ challenge.start_date }} | Ends: {{ challenge.end_date }}
+  </p>
+
   {% if user.is_authenticated %}
-    {% if not registered %}
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Join Challenge</button>
+    {% if challenge.is_premium %}
+      <form action="{% url 'challenges:create_checkout_session' challenge.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded">
+          Subscribe to Access
+        </button>
+      </form>
     {% else %}
-      <p class="text-green-600">You're enrolled in this challenge!</p>
+      <form action="{% url 'challenges:challenge_register' challenge.id %}" method="post">
+        {% csrf_token %}
+        {% if not registered %}
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Join Challenge
+          </button>
+        {% else %}
+          <p class="text-green-600">You're enrolled in this challenge!</p>
+        {% endif %}
+      </form>
     {% endif %}
   {% else %}
-    <a href="{% url 'login' %}" class="bg-blue-500 text-white px-4 py-2 rounded">Log in to Join</a>
+    <a href="{% url 'login' %}?next={% url 'challenges:challenge_detail' challenge.id %}"
+       class="bg-blue-500 text-white px-4 py-2 rounded">
+      Log in to Join
+    </a>
   {% endif %}
-</form>
 {% endblock %}

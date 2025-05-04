@@ -6,7 +6,8 @@ from .services import OpenAIService
 @shared_task
 def process_meal_request(request_id: int):
     """
-    Fetches a MealRequest by ID, calls the OpenAI stub, saves the plan, and updates status.
+    Fetch and process a MealRequest by ID, calling the OpenAI stub,
+    saving the plan, and updating status.
     """
     try:
         req = MealRequest.objects.get(pk=request_id)
@@ -16,5 +17,5 @@ def process_meal_request(request_id: int):
         req.updated_at = timezone.now()
         req.save()
     except MealRequest.DoesNotExist:
-        # handle missing request
+        # optionally log or ignore
         pass
