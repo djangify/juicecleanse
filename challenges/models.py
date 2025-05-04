@@ -20,7 +20,11 @@ class Challenge(models.Model):
         return self.title
 
 class Subscription(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        related_name='challenge_subscriptions',
+        on_delete=models.CASCADE
+    )
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE, related_name='subscriptions')
     stripe_customer_id = models.CharField(max_length=255)
     stripe_subscription_id = models.CharField(max_length=255)

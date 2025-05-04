@@ -1,13 +1,20 @@
 from django.urls import path, include
 from challenges.webhooks import stripe_webhook
-
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
+    path('blog/', include('blog.urls')),
     # Core landing page
     path('', include(('core.urls', 'core'), namespace='core')),
 
+
     # Authentication (login, logout, password change, etc.)
-    path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
 
     # Challenges
     path('challenges/', include(('challenges.urls', 'challenges_ui'), namespace='challenges')),

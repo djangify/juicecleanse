@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded shadow">
+  <h2 class="text-2xl font-semibold mb-4">Hello, {{ user.email }}</h2>
+  <h3 class="text-xl font-medium mb-2">My Active Subscriptions</h3>
+  <ul class="list-disc ml-6">
+    {% for sub in user.subscription_set.all %}
+      <li>{{ sub.plan_name }} — <a href="{{ sub.manage_url }}" class="text-blue-500">Manage subscription</a></li>
+    {% empty %}
+      <li>No active subscriptions</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
